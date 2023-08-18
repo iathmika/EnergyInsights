@@ -7,8 +7,8 @@ import calendar
     
 
 app = Flask(__name__)
-model1 = pickle.load(open('models/model1.pkl', 'rb'))
-model2 = pickle.load(open('models/model.pkl', 'rb'))
+model1 = pickle.load(open('models/model_3.pkl', 'rb'))
+model2 = pickle.load(open('models/model_4.pkl', 'rb'))
 @app.route('/')
 @app.route('/home')
 def index():
@@ -38,24 +38,26 @@ def questions():
     
 def predict():
     input = request.form
-    daily_standing_charge = 50
+    daily_standing_charge = 48
     print("form input: ",input)
     residents = input["residents"]
     appliances = input["appliances"]
     income_group = input["income"]
-    features2 = [[int(appliances),int(residents),int(income_group)]]
-    features1 = [[int(appliances),int(residents)]]
+    rooms = input["rooms"]
+    features2 = [[int(appliances),int(rooms),int(residents),int(income_group)]]
+    features1 = [[int(appliances),int(residents),int(rooms)]]
     #features = [np.array(input)]  #Convert to the form [[a, b]] for input to the model
     if int(income_group) == 0:
         consumption = model1.predict(features1)
     else:
         consumption = model2.predict(features2) 
     consumption = round(consumption[0],2)
-  
+    
+    # 45 Pence per kwh
     now = datetime.now()
     days = calendar.monthrange(now.year, now.month)[1]
-    minCost = round((daily_standing_charge*days + consumption*28)/100,2)
-    maxCost = round((daily_standing_charge*days + consumption*30)/100,2)
+    minCost = round((daily_standing_charge*days + consumption*30)/100,2)
+    maxCost = round((daily_standing_charge*days + consumption*36.49)/100,2)
     results = [consumption, minCost, maxCost]
     return render_template('results.html', results=results)
 

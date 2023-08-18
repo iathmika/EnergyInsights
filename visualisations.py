@@ -143,6 +143,7 @@ def energy_consumption_analysis():
     plt.xlabel("Income Groups")
     plt.ylabel("Number of households")
     plt.title("Distribution of income groups that use smart automation")
+    plt.legend()
     plt.savefig('./static/images/smart_automation.png')
     print("saved bar graph")
     
@@ -254,10 +255,10 @@ def meter_reading(meter_df):
     large_families["monthly_consumption"] = c
     large_families_df = large_families.dropna()
     large_families["monthly_consumption"] = large_families["monthly_consumption"].fillna(large_families["monthly_consumption"].mean())
-    #consumption_df 
+
     global consumption_df
     consumption_df = pd.concat([i1,i2,i3,i4,i5])
-#consumption_df
+
     c = []
     for id in consumption_df.homeid:
 
@@ -281,7 +282,6 @@ def meter_reading(meter_df):
 
         #c.append(np.nan)
     consumption_df["monthly_consumption"] = c
-    #Y = consumption_df.monthly_consumption
     plt.figure()
     plt.boxplot([small_families_df.monthly_consumption,medium_families_df.monthly_consumption,large_families_df.monthly_consumption])
     plt.xticks([1,2,3],['Small families', 'Medium Families', 'Large families'])
@@ -297,10 +297,7 @@ def meter_reading(meter_df):
 
 def clustering(): 
     #global features
-    #features = pd.concat([i1,i2,i3,i4,i5])
     features = consumption_df
-    #consumption_df["monthly_consumption"] = consumption_df["monthly_consumption"].fillna(consumption_df["monthly_consumption"].mean())
-    #i1[i1.homeid == 120].empty
     print("features: ",features)
     x = features[["income_band","monthly_consumption","residents"]].values
     #Using for loop for iterations from 1 to 10.  
@@ -328,16 +325,16 @@ def clustering():
     c4 = features[features.clusters == 3]
  
     #Cluster1
-    kplot.scatter3D(c1.income_band, c1.residents, c1.monthly_consumption, c='red', label = 'Cluster 1')
+    kplot.scatter3D(c1.income_band, c1.residents, c1.monthly_consumption, c='blue', label = 'Cluster 1')
 
     #Cluster2
-    kplot.scatter3D(c2.income_band, c2.residents, c2.monthly_consumption, c='cyan', label = 'Cluster 2')
+    kplot.scatter3D(c2.income_band, c2.residents, c2.monthly_consumption, c='green', label = 'Cluster 2')
 
     #Cluster1
-    kplot.scatter3D(c3.income_band, c3.residents, c3.monthly_consumption, c='green', label = 'Cluster 3')
+    kplot.scatter3D(c3.income_band, c3.residents, c3.monthly_consumption, c='red', label = 'Cluster 3')
 
     #Cluster1
-    kplot.scatter3D(c4.income_band, c4.residents, c4.monthly_consumption, c='blue', label = 'Cluster 4')
+    kplot.scatter3D(c4.income_band, c4.residents, c4.monthly_consumption, c='cyan', label = 'Cluster 4')
     kplot.zaxis.labelpad=0
     kplot.set_title("3-D Cluster of Households")
     kplot.set_zlabel("monthly_consumption",rotation=90)
@@ -387,7 +384,28 @@ def analyse_carbon_emissions(features):
     plt.title("Distribution of Monthly Cost")
     plt.savefig("./static/images/monthly_cost.png")
 
-          
+    
+
+def other_insights(features):
+    plt.figure()
+    plt.scatter(features.monthly_cost,features.unit_charge_pence_per_kwh)
+    plt.xlabel("Monthy; cost (GBP)")
+    plt.ylabel("Unit Charge pence per kwh (in Pence)")
+    plt.title("Monthly cost vs Unit charge pence per KWH")
+
+    plt.savefig('./static/images/cost_unitcharge.png')
+    plt.figure()
+#plt.scatter(features.homeid, features.appliances)
+    
+    appliances_groupings = features.groupby(["appliances"])["appliances"].count()
+    plt.bar(list(appliances_groupings.keys()),list(appliances_groupings))
+    plt.xlabel("Number of Appliances")
+    plt.ylabel("Count of Households")
+    plt.title("Distribution of Households based on count of appliances")
+    plt.savefig('./static/images/appliances.png')
+
+
+
 
 
 
@@ -400,6 +418,7 @@ energy_consumption_analysis()
 meter_reading(meter_df)
 clustering()
 analyse_carbon_emissions(features)
+other_insights(features)
 
 
 
