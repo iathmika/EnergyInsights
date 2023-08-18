@@ -4,7 +4,7 @@ This repository contains the codebase for developing the interface for the energ
 
 # REQUIREMENTS
 - Python 3.6 or higher
-- 
+- Flask (For installation refer below)
   
 # INSTALLATION
 Flask 
