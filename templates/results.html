@@ -106,7 +106,7 @@
             <li>
             <a href="home">
               <svg>
-                <use xlink:href="#comments"></use>
+                <use xlink:href="#charts"></use>
               </svg>
               <span>Carbon Emissions</span>
             </a>
@@ -114,7 +114,7 @@
           <li>
             <a href="consumptions">
               <svg>
-                <use xlink:href="#comments"></use>
+                <use xlink:href="#charts"></use>
               </svg>
               <span>Consumption Analysis</span>
             </a>
@@ -122,7 +122,7 @@
           <li>
             <a href="tariffs">
               <svg>
-                <use xlink:href="#appearance"></use>
+                <use xlink:href="#charts"></use>
               </svg>
               <span>Tariff Analysis</span>
             </a>
@@ -130,7 +130,7 @@
             <li>
                 <a href="clusters">
                   <svg>
-                    <use xlink:href="#comments"></use>
+                    <use xlink:href="#charts"></use>
                   </svg>
                   <span>Clusters</span>
                 </a>
@@ -138,20 +138,12 @@
             <li>
                 <a href="others">
                   <svg>
-                    <use xlink:href="#comments"></use>
+                    <use xlink:href="#charts"></use>
                   </svg>
                   <span>Other Insights</span>
                 </a>
               </li>
-              <li>
-            <a href="home">
-              <svg>
-                <use xlink:href="#charts"></use>
-              </svg>
-              <span>Charts</span>
-            </a>
-          </li>
-  
+            
           <li>
             <a href="questions">
               <svg>
@@ -170,10 +162,11 @@
         <body>
       <section class="page-content"> 
         <br>
-       <h1> Predicted Results:</h1>
+       <h2> Predicted Results:</h2>
         <br>
-       <h2> Monthly consumption - {{ results[0] }} kwh </h2>
-       <h2>  Monthly Average Cost = {{ results[1] }} GBP </h2>
+        <br>
+       <h2> Monthly Average consumption = {{ results[0] }} kwh </h2>
+       <h2>  Monthly Average Cost = {{ results[1] }} - {{ results[2] }} GBP </h2>
        </section>
       </body>
 

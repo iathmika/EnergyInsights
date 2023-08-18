@@ -3,9 +3,17 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  
+  <title>Monthly Consumption and Cost Prediction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+  </head>
+
+
+  <body>
   <!-- Make it compatible to mobile devices -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <svg style="display:none;">
     <symbol id="logo" viewBox="0 0 140 59">
       <g>
@@ -96,7 +104,7 @@
           <li>
           <a href="home">
             <svg>
-              <use xlink:href="#comments"></use>
+              <use xlink:href="#charts"></use>
             </svg>
             <span>Carbon Emissions</span>
           </a>
@@ -104,7 +112,7 @@
         <li>
           <a href="consumptions">
             <svg>
-              <use xlink:href="#comments"></use>
+              <use xlink:href="#charts"></use>
             </svg>
             <span>Consumption Analysis</span>
           </a>
@@ -112,7 +120,7 @@
         <li>
           <a href="tariffs">
             <svg>
-              <use xlink:href="#appearance"></use>
+              <use xlink:href="#charts"></use>
             </svg>
             <span>Tariff Analysis</span>
           </a>
@@ -120,7 +128,7 @@
           <li>
               <a href="clusters">
                 <svg>
-                  <use xlink:href="#comments"></use>
+                  <use xlink:href="#charts"></use>
                 </svg>
                 <span>Clusters</span>
               </a>
@@ -128,19 +136,11 @@
           <li>
               <a href="others">
                 <svg>
-                  <use xlink:href="#comments"></use>
+                  <use xlink:href="#charts"></use>
                 </svg>
                 <span>Other Insights</span>
               </a>
             </li>
-            <li>
-          <a href="home">
-            <svg>
-              <use xlink:href="#charts"></use>
-            </svg>
-            <span>Charts</span>
-          </a>
-        </li>
 
         <li>
           <a href="questions">
@@ -159,18 +159,14 @@
     </nav>
   </header>
   
-  <title>Monthly Consumption and Cost Prediction</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
-</head>
 
-  <div class="container"> 
-    
-        <h1 class="appname textclr" align-items= left>Prediction of Monthly consumption</h1>
-  
-    <form id="survey-form" method="POST" action="predict">
+
+  <section class="page-content"> 
+    <br>
+    <h1>Predict Monthly consumption and cost</h1>
+    <br>
+
+    <form id="predict-form" method="POST" action="predict">
      <p>How many appliances do you roughly own and use? </p> 
       <div class="form-group">
        
@@ -182,25 +178,35 @@
       
         <input type="number" name="residents" id="num" class="form-control" placeholder="Enter number of residents" required="">
       </div>
+
+      <p>How many rooms are there in your house?</p>
+      <div class="form-group">
+      
+        <input type="number" name="rooms" id="num" class="form-control" placeholder="Enter number of rooms" required="">
+      </div>
      
       <p>What Income Group do you belong to?</p>
       <div class="form-group">
      
-        <div class="row">
+        <div class="row">     
           <div class="column">
-        
-   
-          <input name="income" value="0" type="radio" class="input-radio"/>Don't want to share </div>
-        
+          <input name="income" value="0" type="radio" class="input-radio"/>Don't want to share 
+          </div>       
           <div class="column">
           <input name="income" value="1" type="radio" class="input-radio">Lower Income Group 
-          </div>
+          </div> 
+        </div>
+        <div class="row">
           <div class="column">
-          <input name="income" value="2" type="radio" class="input-radio">Lower Middle Income Group 
-          </div>
+          <input name="income" value="2" type="radio" class="input-radio"> Lower Middle Income Group 
+          </div> 
+        
+         
           <div class="column">
           <input name="income" value="3" type="radio" class="input-radio" checked="checked"> Middle Income Group
         </div>
+      </div>
+      <div class="row"> 
         <div class="column">
           <input name="income" value="4" type="radio" class="input-radio">Upper Middle Income Group
           </div>
@@ -209,15 +215,18 @@
         </div>
       </div>
       </div>
+    
 
       <div class="form-group">
         <button type="submit" id="submit" class="submit-button">
           Submit
         </button>
+
       </div>
+
     </form>
 
-  </div>
+</section>
  
 </body>
 </html>
